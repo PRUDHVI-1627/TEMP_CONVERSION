@@ -1,44 +1,212 @@
-body{
-    font-family: arial, sans-serif;
-    background-color: hsl(0, 0%, 95%);
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&family=Inconsolata:wght@400;500&display=swap');
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
-h1{
-    color: hsl(223, 100%, 64%);
+
+:root {
+    --accent: hsl(196, 90%, 48%);
+    --accent-light: hsl(196, 90%, 96%);
+    --accent-glow: hsla(196, 90%, 48%, 0.15);
+    --text-primary: hsl(220, 20%, 12%);
+    --text-secondary: hsl(220, 10%, 50%);
+    --border: hsl(220, 15%, 90%);
+    --bg: hsl(210, 30%, 98%);
+    --card: hsl(0, 0%, 100%);
+    --radius: 16px;
 }
-form{
-    background-color: hsl(0, 0%, 100%);
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: var(--bg);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image:
+        radial-gradient(ellipse at 20% 50%, hsla(196, 90%, 48%, 0.06) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, hsla(196, 70%, 60%, 0.05) 0%, transparent 50%);
+}
+
+form {
+    background-color: var(--card);
     text-align: center;
-    max-width: 300px;
-    margin: auto;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 5px 5px 15px hsla(0, 0%, 0%, 0.3);
+    width: 360px;
+    padding: 48px 40px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow:
+        0 1px 3px hsla(220, 20%, 12%, 0.04),
+        0 8px 32px hsla(220, 20%, 12%, 0.06),
+        0 24px 64px hsla(220, 20%, 12%, 0.04);
+    animation: fadeUp 0.5s ease both;
 }
-#textbox{
-    width: 50%;
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 32px;
+}
+
+/* Number input */
+#textbox {
+    font-family: 'Inconsolata', monospace;
+    width: 100%;
     text-align: center;
-    font-size: 2em;
-    border: 2px solid hsla(0, 0%, 0%, 0.8);
-    margin-bottom: 15px;
-}
-label{
-    font-size: 1.5em;
-    font-weight: bold;
-}
-button{
-    margin-top: 15px;
-    background-color: hsl(0, 100%, 60%);
-    color: white;
-    font-size: 1.5em;
+    font-size: 3rem;
+    font-weight: 400;
+    color: var(--text-primary);
+    background: transparent;
     border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
+    border-bottom: 2px solid var(--border);
+    padding: 8px 0 12px;
+    margin-bottom: 32px;
+    outline: none;
+    transition: border-color 0.2s ease;
+    -moz-appearance: textfield;
+}
+
+#textbox::-webkit-inner-spin-button,
+#textbox::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+#textbox:focus {
+    border-bottom-color: var(--accent);
+}
+
+/* Radio options */
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 32px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    border: 1.5px solid var(--border);
     cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
+    user-select: none;
 }
-button:hover{
-    background-color: hsl(0, 100%, 50%);
+
+.radio-label:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background-color: var(--accent-light);
 }
-#result{
-    font-size: 1.75em;
-    font-weight: bold;
+
+input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+input[type="radio"]::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.2s ease;
+}
+
+input[type="radio"]:checked {
+    border-color: var(--accent);
+}
+
+input[type="radio"]:checked::after {
+    opacity: 1;
+    transform: scale(1);
+}
+
+input[type="radio"]:checked + span {
+    color: var(--accent);
+}
+
+.radio-label:has(input:checked) {
+    border-color: var(--accent);
+    background-color: var(--accent-light);
+    color: var(--accent);
+}
+
+/* Button */
+button {
+    width: 100%;
+    background-color: var(--accent);
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-bottom: 24px;
+}
+
+button:hover {
+    background-color: hsl(196, 90%, 40%);
+    box-shadow: 0 4px 20px var(--accent-glow);
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* Result */
+#result {
+    font-family: 'Inconsolata', monospace;
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    min-height: 2.5rem;
+    transition: all 0.3s ease;
+}
+
+#result:not(:empty) {
+    animation: pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes pop {
+    from { opacity: 0; transform: scale(0.92); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+.divider {
+    width: 40px;
+    height: 2px;
+    background: var(--border);
+    margin: 0 auto 20px;
+    border-radius: 2px;
 }
