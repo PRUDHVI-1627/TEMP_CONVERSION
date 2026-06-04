@@ -4,6 +4,8 @@
 
 A clean, minimal temperature conversion tool built with vanilla HTML, CSS, and JavaScript.
 
+<img width="562" height="618" alt="Temp Conversion Preview" src="https://github.com/user-attachments/assets/685d5d6e-e7e5-4a37-a127-38c150da4bad" />
+
 ## Features
 
 - Convert **Celsius → Fahrenheit** and **Fahrenheit → Celsius**
